@@ -1,12 +1,14 @@
 package tickets
 
 import (
-	"fmt"
-	"math"
 	"strconv"
 )
 
 type Tickets struct {
+	count  int
+	table  [][10]int
+	sum    []int
+	square []int
 }
 
 func (t Tickets) Run(s string) string {
@@ -14,25 +16,50 @@ func (t Tickets) Run(s string) string {
 	if err != nil {
 		return "error"
 	}
-	count := 0
-	limit := int(math.Pow(10, float64(2*n)))
-	for i := 0; i < limit; i++ {
-		if isLucky(i, 2*n) {
-			count++
-		}
+	t.table = [][10]int{
+		{1},
+		{0, 1},
+		{0, 0, 1},
+		{0, 0, 0, 1},
+		{0, 0, 0, 0, 1},
+		{0, 0, 0, 0, 0, 1},
+		{0, 0, 0, 0, 0, 0, 1},
+		{0, 0, 0, 0, 0, 0, 0, 1},
+		{0, 0, 0, 0, 0, 0, 0, 0, 1},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	}
-	return strconv.Itoa(count)
+	t.calc(n)
+	return strconv.Itoa(t.count)
 }
 
-func isLucky(n, l int) bool {
-	format := fmt.Sprintf("%%0%dd", l)
-	nums := []byte(fmt.Sprintf(format, n))
-	var sum1, sum2 int
-	for _, elem := range nums[0 : l/2] {
-		sum1 += int(elem)
+func (t *Tickets) calc(n int) {
+	if n == 0 {
+		return
 	}
-	for _, elem := range nums[l/2:] {
-		sum2 += int(elem)
+	t.sum = make([]int, len(t.table))
+	t.square = make([]int, len(t.table))
+	var cnt int
+	for i := range t.table {
+		cnt = 0
+		for _, elem := range t.table[i] {
+			cnt += elem
+		}
+		t.sum[i] = cnt
+		t.square[i] = cnt * cnt
 	}
-	return sum1 == sum2
+	t.count = 0
+	for _, elem := range t.square {
+		t.count += elem
+	}
+	t.refillTable()
+	t.calc(n - 1)
+}
+
+func (t *Tickets) refillTable() {
+	t.table = make([][10]int, len(t.sum)+9)
+	for i := 0; i < 10; i++ {
+		for j := range t.sum {
+			t.table[i+j][i] = t.sum[j]
+		}
+	}
 }
