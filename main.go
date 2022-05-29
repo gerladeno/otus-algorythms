@@ -1,7 +1,7 @@
 package main
 
 import (
-	"algorythms/02tickets"
+	_3algebra "algorythms/03algebra"
 	"fmt"
 	"os"
 	"reflect"
@@ -16,7 +16,7 @@ type ITask interface {
 func test(task ITask, path string) {
 	started := time.Now()
 	defer func() {
-		fmt.Printf("Total time elapsed: %d ms", time.Since(started).Milliseconds())
+		fmt.Printf("Total time elapsed: %d ns", time.Since(started).Nanoseconds())
 	}()
 	var instance time.Time
 	name := reflect.TypeOf(task).Name()
@@ -35,21 +35,19 @@ func test(task ITask, path string) {
 		if os.IsNotExist(err) {
 			break
 		}
-		input = strings.TrimSpace(string(bIn)) //[:strings.IndexAny(string(bIn), "\n\r")]
+		input = strings.TrimSpace(string(bIn))
 		expected = strings.TrimSpace(string(bOut))
 		res = task.Run(input)
 		if res != expected {
-			fmt.Printf("%s test.%d.in failed within %d ms\n", name, i, time.Since(instance).Milliseconds())
-			return
+			fmt.Printf("%s test.%d.in failed within %d ns. Expected: %s got: %s\n", name, i, time.Since(instance).Nanoseconds(), expected, res)
+			continue
 		}
-		fmt.Printf("%s test.%d.in success within %d ms\n", name, i, time.Since(instance).Milliseconds())
+		fmt.Printf("%s test.%d.in success within %d ns\n", name, i, time.Since(instance).Nanoseconds())
 	}
 	return
 }
 
 func main() {
-	//sl := strlen.StringLength{}
-	//test(sl, "strlen")
-	tckt := tickets.Tickets{}
-	test(tckt, "02tickets")
+	item := _3algebra.Power{}
+	test(item, "03algebra/3.Power")
 }
