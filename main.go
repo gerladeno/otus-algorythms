@@ -56,6 +56,6 @@ func test(task ITask, path string) {
 }
 
 func main() {
-	item := _3algebra.Fibo{}
-	test(item, "03algebra/4.Fibo")
+	item := _3algebra.Prime{}
+	test(item, "03algebra/5.Primes")
 }

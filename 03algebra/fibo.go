@@ -40,7 +40,11 @@ func FiboGoldenSection(n int) *big.Int {
 	if n == 0 {
 		return &big.Int{}
 	}
-	result, _ := Zero().Add(Zero().Mul(Pow(big.NewFloat(phi), n), big.NewFloat(1/math.Sqrt(5))), big.NewFloat(0.5)).Int(nil)
+	bigPhi := big.NewFloat(phi)
+	//bigPhi := Zero().Sqrt(big.NewFloat(5))
+	//bigPhi.Add(bigPhi, big.NewFloat(1))
+	//bigPhi.Mul(bigPhi, big.NewFloat(0.5))
+	result, _ := Zero().Add(Zero().Mul(Pow(bigPhi, n), big.NewFloat(1/math.Sqrt(5))), big.NewFloat(0.5)).Int(nil)
 	return result
 }
 
