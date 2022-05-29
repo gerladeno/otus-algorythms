@@ -9,6 +9,8 @@ import (
 	"time"
 )
 
+const maxStringLen = 200
+
 type ITask interface {
 	Run(s string) string
 }
@@ -38,8 +40,14 @@ func test(task ITask, path string) {
 		input = strings.TrimSpace(string(bIn))
 		expected = strings.TrimSpace(string(bOut))
 		res = task.Run(input)
+		if len(expected) > maxStringLen {
+			expected = expected[:maxStringLen]
+		}
+		if len(res) > maxStringLen {
+			res = res[:maxStringLen]
+		}
 		if res != expected {
-			fmt.Printf("%s test.%d.in failed within %d ns. Expected: %s got: %s\n", name, i, time.Since(instance).Nanoseconds(), expected, res)
+			fmt.Printf("%s test.%d.in failed within %d ns.\nExpected: %s\n     got: %s\n", name, i, time.Since(instance).Nanoseconds(), expected, res)
 			continue
 		}
 		fmt.Printf("%s test.%d.in success within %d ns\n", name, i, time.Since(instance).Nanoseconds())
@@ -48,6 +56,6 @@ func test(task ITask, path string) {
 }
 
 func main() {
-	item := _3algebra.Power{}
-	test(item, "03algebra/3.Power")
+	item := _3algebra.Fibo{}
+	test(item, "03algebra/4.Fibo")
 }
