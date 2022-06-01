@@ -1,7 +1,7 @@
 package main
 
 import (
-	_3algebra "algorythms/03algebra"
+	_6simplesort "algorythms/06simplesort"
 	"fmt"
 	"os"
 	"reflect"
@@ -55,7 +55,18 @@ func test(task ITask, path string) {
 	return
 }
 
+//func main() {
+//	ch := make(chan struct{})
+//	item := &_6simplesort.Bubble{Ch: ch}
+//	go func() {
+//		test(item, "sorting-tests/0.random")
+//	}()
+//	if err := visual.Run(ch, item); err != nil {
+//		fmt.Println(err.Error())
+//	}
+//}
+
 func main() {
-	item := _3algebra.Prime{}
-	test(item, "03algebra/5.Primes")
+	item := &_6simplesort.Shell{}
+	test(item, "sorting-tests/0.random")
 }
