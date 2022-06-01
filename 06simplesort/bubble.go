@@ -2,6 +2,7 @@ package _6simplesort
 
 import (
 	"algorythms/sortingcommon"
+	"algorythms/visual"
 )
 
 type Bubble struct {
@@ -29,10 +30,10 @@ func (b *Bubble) sort() {
 	for i := range b.array {
 		swapped = false
 		for j := 0; j < len(b.array)-1-i; j++ {
+			<-b.Ch
 			if b.array[j] > b.array[j+1] {
-				<-b.Ch
-				//visual.SwapEvent(b, visual.Swap{I: j, J: j + 1})
-				sortingcommon.Swap(b, j, j+1)
+				visual.SwapEvent(b, visual.Swap{I: j, J: j + 1})
+				//sortingcommon.Swap(b, j, j+1)
 				swapped = true
 			}
 		}

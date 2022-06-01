@@ -6,6 +6,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"image/color"
+	"reflect"
 	"sync"
 )
 
@@ -92,7 +93,7 @@ func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeigh
 
 func Run(eventCh chan struct{}, s sortingcommon.Sorter) error {
 	ebiten.SetWindowSize(width, height)
-	ebiten.SetWindowTitle("Hello, World!")
+	ebiten.SetWindowTitle(reflect.TypeOf(s).Elem().Name())
 	if err := ebiten.RunGame(&Game{next: eventCh, s: s}); err != nil {
 		return err
 	}

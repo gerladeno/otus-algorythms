@@ -1,7 +1,8 @@
 package main
 
 import (
-	_6simplesort "algorythms/06simplesort"
+	_7pyramidsort "algorythms/07pyramidsort"
+	"algorythms/visual"
 	"fmt"
 	"os"
 	"reflect"
@@ -55,18 +56,18 @@ func test(task ITask, path string) {
 	return
 }
 
-//func main() {
-//	ch := make(chan struct{})
-//	item := &_6simplesort.Bubble{Ch: ch}
-//	go func() {
-//		test(item, "sorting-tests/0.random")
-//	}()
-//	if err := visual.Run(ch, item); err != nil {
-//		fmt.Println(err.Error())
-//	}
-//}
-
 func main() {
-	item := &_6simplesort.Shell{}
-	test(item, "sorting-tests/0.random")
+	ch := make(chan struct{})
+	item := &_7pyramidsort.Heap{Ch: ch}
+	go func() {
+		test(item, "sorting-tests/0.random")
+	}()
+	if err := visual.Run(ch, item); err != nil {
+		fmt.Println(err.Error())
+	}
 }
+
+//func main() {
+//	item := &_7pyramidsort.Selection{}
+//	test(item, "sorting-tests/0.random")
+//}
