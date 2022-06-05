@@ -2,7 +2,6 @@ package _8quicksort
 
 import (
 	"algorythms/sortingcommon"
-	"algorythms/visual"
 )
 
 type Quick struct {
@@ -43,9 +42,9 @@ func (q *Quick) split(l, r int) int {
 	for i := l; i <= r; i++ {
 		if q.a[i] <= q.a[r] {
 			m++
-			<-q.Ch
-			visual.SwapEvent(q, visual.Swap{I: m, J: i})
-			//sortingcommon.Swap(q, m, i)
+			//<-q.Ch
+			//visual.SwapEvent(q, visual.Swap{I: m, J: i})
+			sortingcommon.Swap(q, m, i)
 		}
 	}
 	return m
@@ -57,8 +56,9 @@ func (q *Quick) segregate(l, r int) int {
 	val := q.a[r]
 	for {
 		if i >= j {
-			<-q.Ch
-			visual.SwapEvent(q, visual.Swap{I: i, J: r})
+			//<-q.Ch
+			//visual.SwapEvent(q, visual.Swap{I: i, J: r})
+			sortingcommon.Swap(q, r, i)
 			return i
 		}
 		if q.a[i] <= val {
@@ -69,7 +69,8 @@ func (q *Quick) segregate(l, r int) int {
 			j--
 			continue
 		}
-		<-q.Ch
-		visual.SwapEvent(q, visual.Swap{I: i, J: j})
+		//<-q.Ch
+		//visual.SwapEvent(q, visual.Swap{I: i, J: j})
+		sortingcommon.Swap(q, j, i)
 	}
 }

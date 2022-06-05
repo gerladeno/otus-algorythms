@@ -2,7 +2,6 @@ package main
 
 import (
 	_8quicksort "algorythms/08quicksort"
-	"algorythms/visual"
 	"fmt"
 	"os"
 	"reflect"
@@ -56,18 +55,18 @@ func test(task ITask, path string) {
 	return
 }
 
-func main() {
-	ch := make(chan struct{})
-	item := &_8quicksort.Quick{Ch: ch}
-	go func() {
-		test(item, "sorting-tests/0.random")
-	}()
-	if err := visual.Run(ch, item); err != nil {
-		fmt.Println(err.Error())
-	}
-}
-
 //func main() {
-//	item := &_7pyramidsort.Selection{}
-//	test(item, "sorting-tests/0.random")
+//	ch := make(chan struct{})
+//	item := &_8quicksort.Quick{Ch: ch}
+//	go func() {
+//		test(item, "sorting-tests/0.random")
+//	}()
+//	if err := visual.Run(ch, item); err != nil {
+//		fmt.Println(err.Error())
+//	}
 //}
+
+func main() {
+	item := &_8quicksort.Merge{}
+	test(item, "sorting-tests/3.revers")
+}
