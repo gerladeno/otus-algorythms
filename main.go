@@ -1,7 +1,7 @@
 package main
 
 import (
-	_7pyramidsort "algorythms/07pyramidsort"
+	_8quicksort "algorythms/08quicksort"
 	"algorythms/visual"
 	"fmt"
 	"os"
@@ -58,7 +58,7 @@ func test(task ITask, path string) {
 
 func main() {
 	ch := make(chan struct{})
-	item := &_7pyramidsort.Heap{Ch: ch}
+	item := &_8quicksort.Quick{Ch: ch}
 	go func() {
 		test(item, "sorting-tests/0.random")
 	}()
