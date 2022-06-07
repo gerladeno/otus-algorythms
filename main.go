@@ -1,7 +1,7 @@
 package main
 
 import (
-	_8quicksort "algorythms/08quicksort"
+	_9linearsort "algorythms/09linearsort"
 	"fmt"
 	"os"
 	"reflect"
@@ -66,7 +66,21 @@ func test(task ITask, path string) {
 //	}
 //}
 
+//func main() {
+//	item := &_8quicksort.Merge{}
+//	test(item, "sorting-tests/3.revers")
+//}
+
 func main() {
-	item := &_8quicksort.Merge{}
-	test(item, "sorting-tests/3.revers")
+	err := _9linearsort.Generate()
+	if err != nil {
+		panic(err)
+	}
+	a, err := _9linearsort.ReadBinary()
+	if err != nil {
+		panic(err)
+	}
+	started := time.Now()
+	_ = _9linearsort.OuterSort(a)
+	fmt.Printf("1 bil sorted from disk within %g seconds", time.Since(started).Seconds())
 }
