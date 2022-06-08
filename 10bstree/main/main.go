@@ -8,7 +8,7 @@ import (
 )
 
 //func main() {
-//	a := _0bstree.BST{Key: 10}
+//	a := _0bstree.AVLTree{Key: 10}
 //	a.Insert(5, nil)
 //	a.Insert(10, nil)
 //	a.Insert(12, nil)
@@ -35,8 +35,9 @@ const N = 100_000
 
 func main() {
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
-	a := _0bstree.BST{Key: r.Int()}
-	b := _0bstree.BST{Key: 0}
+	a := _0bstree.AVLTree{Key: r.Int()}
+	b := _0bstree.AVLTree{Key: 0}
+	started := time.Now()
 	for i := 1; i < N; i++ {
 		a.Insert(int(r.Int31()), nil)
 		b.Insert(i, nil)
@@ -44,7 +45,8 @@ func main() {
 			fmt.Printf("\r%d%%", 100*i/N)
 		}
 	}
-	started := time.Now()
+	fmt.Printf("\ntook %d ms to fill with %d elems for sorted\n", time.Since(started).Milliseconds(), N)
+	started = time.Now()
 	for i := 0; i < N/10; i++ {
 		a.Delete(int(r.Int31()))
 		if i%(N/1000) == 0 {
